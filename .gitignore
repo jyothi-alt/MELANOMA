@@ -6,4 +6,4 @@ data
 .vscode
 __pycache__
 .env
-/models
+*.h5
