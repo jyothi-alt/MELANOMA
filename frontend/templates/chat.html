@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}AI Medical Consultation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="chat-sidebar">
+    <h3><i class="fas fa-history"></i> Chat History</h3>
+    <div class="chat-categories">
+        {% for category in categories %}
+        <div class="chat-category" data-category="{{ category.name }}">
+            <i class="fas fa-folder"></i> {{ category.name }}
+            <span class="chat-count">({{ category.count }})</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="sidebar-footer">
+        <a href="{{ url_for('dashboard') }}" class="btn">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+    </div>
+</div>
+
+<div class="chat-container">
+    <div class="chat-box">
+        <div class="chat-messages" id="chat-messages">
+            {% for message in chat_history|reverse %}
+                {% if message.type == 'report' %}
+                    <div class="message ai-message medical-report">
+                        {{ message.ai | safe }}
+                        <div class="message-time">{{ message.timestamp.strftime('%H:%M') }}</div>
+                    </div>
+                {% else %}
+                    {% if message.user %}
+                        <div class="message user-message">
+                            <div class="message-content">{{ message.user }}</div>
+                            <div class="message-time">{{ message.timestamp.strftime('%H:%M') }}</div>
+                        </div>
+                    {% endif %}
+                    {% if message.ai %}
+                        <div class="message ai-message">
+                            <div class="message-content">{{ message.ai | safe }}</div>
+                            <div class="message-time">{{ message.timestamp.strftime('%H:%M') }}</div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="chat-input">
+            <form method="POST" action="{{ url_for('chat') }}" id="chat-form">
+                <input type="text" id="query" name="query" placeholder="Ask about your skin condition..." required>
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i> Send
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-scroll to bottom on page load
+    window.onload = function() {
+        scrollToBottom();
+    };
+
+    // Smooth scroll to bottom on new message
+    function scrollToBottom() {
+        const chatMessages = document.querySelector('.chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Handle category filtering
+    document.querySelectorAll('.chat-category').forEach(category => {
+        category.addEventListener('click', function() {
+            const selectedCategory = this.dataset.category;
+            document.querySelectorAll('.message').forEach(msg => {
+                if (selectedCategory === 'All' || msg.dataset.category === selectedCategory) {
+                    msg.style.display = 'block';
+                } else {
+                    msg.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Form submission
+    document.getElementById('chat-form').addEventListener('submit', function() {
+        const button = this.querySelector('button[type="submit"]');
+        const input = this.querySelector('input[type="text"]');
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        setTimeout(() => {
+            button.disabled = false;
+            button.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+            input.value = '';
+            scrollToBottom();
+        }, 1000);
+    });
+</script>
+{% endblock %}

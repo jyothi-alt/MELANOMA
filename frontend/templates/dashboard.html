@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome, {{ username }}</h2>
+    <p>You can upload images or use AI consultation features.</p>
+    <div class="menu">
+        <div><a href="{{ url_for('index') }}">upload</a></div>
+        <div><a href="{{ url_for('chat') }}">chat</a></div>
+        <div><a href="{{ url_for('logout') }}">Logout</a></div>
+    </div>
+</div>
+{% endblock %}

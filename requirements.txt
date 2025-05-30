@@ -1,0 +1,15 @@
+flask
+flask-cors
+flask-sqlalchemy
+pymysql
+cryptography
+tensorflow
+numpy
+Pillow
+opencv-python
+google-genai
+python-dotenv
+werkzeug
+matplotlib
+scikit-learn
+setuptools

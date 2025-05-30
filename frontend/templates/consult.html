@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}AI Medical Consultation{% endblock %}
+
+{% block content %}
+<div class="container consult-container">
+    <h1>AI Medical Consultation</h1>
+    
+    <div class="consultation-content">
+        <h2>About Melanoma Detection</h2>
+        <p>Our AI-powered tool provides an initial screening for potential skin lesions. However, it is NOT a substitute for professional medical advice.</p>
+        
+        <h3>Key Points:</h3>
+        <ul>
+            <li>AI analysis provides a probability assessment</li>
+            <li>Consult a dermatologist for definitive diagnosis</li>
+            <li>Regular skin checks are recommended</li>
+        </ul>
+
+        <div class="warning-box">
+            <h3>Important Disclaimer</h3>
+            <p>This tool is for informational purposes only. Always consult a healthcare professional for accurate medical diagnosis and treatment.</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/" class="btn">Back to Detection</a>
+        <a href="/chat" class="btn">AI chat</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Melanoma Detection AI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>AI Melanoma Detection</h1>
+    
+    <form action="/predict" method="POST" enctype="multipart/form-data" id="upload-form">
+        <label for="file-upload" class="custom-file-upload">
+            Upload Skin Image
+        </label>
+        <input type="file" name="file" id="file-upload" accept="image/*" required onchange="previewImage(event)">
+        
+        <div id="preview-container">
+            <img id="preview" src="#" alt="Image Preview" style="display: none;">
+        </div>
+        
+        <button type="submit" class="btn">Analyze Skin Lesion</button>
+    </form>
+
+    <div class="additional-info">
+       <a href="{{url_for('consult')}}" class="btn secondary-btn">AI Medical Consultation</a>
+       <a href="{{url_for('dashboard')}}" class="btn secondary-btn">Dashboard</a>
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+{% endblock %}

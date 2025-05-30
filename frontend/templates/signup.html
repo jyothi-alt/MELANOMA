@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Signup</h2>
+    <form method="POST" action="{{ url_for('signup') }}">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Signup</button>
+    </form>
+    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+</div>
+{% endblock %}

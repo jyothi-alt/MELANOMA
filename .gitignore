@@ -1,0 +1,8 @@
+.venv
+/backend/app.py.bak
+/backend/app.py.bak2
+/research_capstone.egg-info
+data
+.vscode
+__pycache__
+.env

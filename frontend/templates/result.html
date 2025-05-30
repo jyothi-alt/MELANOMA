@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Melanoma Detection Result{% endblock %}
+
+{% block content %}
+<div class="container result-container">
+    <h1>Skin Lesion Analysis</h1>
+
+    <div class="result-details">
+        <img src="{{ image_url }}" alt="Uploaded Image" width="300" height="300">
+
+        
+        <div class="result-info">
+            <h2>Prediction Details</h2>
+            <p><strong>Melanoma Probability:</strong> {{ confidence }}</p>
+            <p><strong>Risk Level:</strong> {{ risk_level }}</p>
+        </div>
+
+        <div class="ai-consultation">
+            <h2>AI Medical Consultation</h2>
+            <p>{{ consultation | safe }}</p>
+        </div>
+
+        <div class="image-analysis">
+            <h2>Image Analysis</h2>
+            <p>{{ image_analysis }}</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/" class="btn">Analyze Another Image</a>
+        <a href="/consult" class="btn secondary-btn">Get More Information</a>
+    </div>
+</div>
+{% endblock %}
