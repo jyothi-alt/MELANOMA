@@ -13,3 +13,4 @@ werkzeug
 matplotlib
 scikit-learn
 setuptools
+huggingface_hub

@@ -120,11 +120,60 @@ This will create all necessary tables and add a default test user:
 - **Password**: `password123`
 <!-- - **Default Doctor**: `Dr. Jyothi K.S` -->
 
-### 6. Verify ML Model
+### 6. Download the AI Model
 
-Ensure the trained model file exists at:
+The melanoma detection model is hosted on Hugging Face due to its large size (508MB). Download it using one of these methods:
+
+**Option 1: Automated Download Script (Easiest)**
+```bash
+python download_model.py
 ```
-models/melanoma_model.h5
+This script will automatically download and set up the model for you.
+
+**Option 2: Using Hugging Face Hub**
+```bash
+pip install huggingface_hub
+```
+
+```python
+# Run this Python script to download the model
+from huggingface_hub import hf_hub_download
+import os
+
+# Create models directory if it doesn't exist
+os.makedirs('models', exist_ok=True)
+
+# Download the model file
+model_path = hf_hub_download(
+    repo_id="likhith-u28/melanoma-detection-model",
+    filename="melanoma_model.h5",
+    local_dir="models"
+)
+print(f"Model downloaded to: {model_path}")
+```
+
+**Option 3: Manual Download**
+1. Visit: https://huggingface.co/likhith-u28/melanoma-detection-model
+2. Click on `melanoma_model.h5` file
+3. Click "Download" button
+4. Place the downloaded file in the `models/` directory
+
+**Option 4: Using wget/curl**
+```bash
+# Create models directory
+mkdir -p models
+
+# Download using wget
+wget -O models/melanoma_model.h5 "https://huggingface.co/likhith-u28/melanoma-detection-model/resolve/main/melanoma_model.h5"
+
+# OR using curl
+curl -L -o models/melanoma_model.h5 "https://huggingface.co/likhith-u28/melanoma-detection-model/resolve/main/melanoma_model.h5"
+```
+
+**Verify the download:**
+```bash
+# Check if model file exists and has correct size (~508MB)
+ls -lh models/melanoma_model.h5
 ```
 
 ### 7. Run the Application
